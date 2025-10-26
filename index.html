@@ -1,728 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>A little something</title>
-    <meta name="description" content="A cozy birthday surprise website blending nursing dreams and baking vibes." />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        /* ================================
-       Birthday Surprise — Purple Theme
-       Edit tokens below to rebrand fast
-    ================================= */
-        :root {
-            --bg: #0f0a12;
-            /* deep plum */
-            --surface: #1a1320;
-            /* card bg */
-            --text: #efe7f6;
-            /* near white */
-            --muted: #c9b8da;
-            /* soft lavender */
-            --brand: #b57edc;
-            /* lilac */
-            --brand-2: #c9a0ff;
-            /* lighter lilac */
-            --accent: #ffb6d9;
-            /* pink glaze */
-            --gold: #f3c97a;
-            /* warm highlight */
-            --radius: 18px;
-            --shadow: 0 14px 32px rgba(0, 0, 0, .35);
-            --maxw: 1100px;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A little something</title>
+  <meta name="description" content="A cozy birthday surprise website blending nursing dreams and baking vibes." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0f0a12; --surface:#1a1320; --text:#efe7f6; --muted:#c9b8da;
+      --brand:#b57edc; --brand-2:#c9a0ff; --accent:#ffb6d9; --gold:#f3c97a;
+      --radius:18px; --shadow:0 14px 32px rgba(0,0,0,.35); --maxw:1100px;
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);
+      background:radial-gradient(1200px 600px at 70% -10%, rgba(181,126,220,.18), transparent 55%),linear-gradient(160deg,#0b0710,#170f1f 40%,#140d1b);
+      line-height:1.65; letter-spacing:.2px;}
+    h1,h2{font-family:"Dancing Script",cursive;line-height:1.1}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{width:min(100% - 2rem, var(--maxw)); margin-inline:auto}
 
-        * {
-            box-sizing: border-box
-        }
+    header{position:sticky;top:0;z-index:40;backdrop-filter:saturate(160%) blur(10px);
+      background:color-mix(in oklab, var(--bg) 82%, #0000); border-bottom:1px solid #ffffff1c}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    .brand{display:flex;align-items:center;gap:.7rem;font-weight:800;letter-spacing:.3px}
+    .logo{width:36px;height:36px;border-radius:12px;background:conic-gradient(from 200deg,var(--brand),var(--brand-2),var(--accent));box-shadow:inset 0 0 0 2px #ffffff24}
+    .nav-links{display:flex;gap:1rem;align-items:center}
+    .nav-links a{opacity:.9;padding:.35rem .6rem;border-radius:.6rem}
+    .nav-links a:hover{opacity:1;background:#ffffff10}
+    .menu-btn{display:none;border:1px solid #ffffff28;border-radius:10px;padding:.4rem .6rem;background:transparent;color:var(--text)}
+    @media (max-width:860px){
+      .menu-btn{display:inline-flex}
+      .nav-links{display:none;position:absolute;left:1rem;right:1rem;top:64px;flex-direction:column;background:var(--surface);border:1px solid #ffffff22;border-radius:14px;padding:.6rem;box-shadow:var(--shadow)}
+      .nav-links.open{display:flex}
+    }
 
-        html,
-        body {
-            height: 100%
-        }
+    .hero{padding:6rem 0 3rem;display:grid;gap:2rem;align-items:center;grid-template-columns:1.05fr .95fr}
+    .hero h1{font-size:clamp(2.2rem, 4vw + 1rem, 3.6rem);margin:.2rem 0 .6rem}
+    .hero p{color:var(--muted)}
+    .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.15rem;border-radius:999px;border:1px solid #ffffff28;
+      background:linear-gradient(180deg, color-mix(in oklab, var(--brand) 28%, #fff0), color-mix(in oklab, var(--brand) 10%, #0000));
+      color:white;font-weight:700;box-shadow:var(--shadow);transition:transform .15s ease, box-shadow .2s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 18px 36px rgba(0,0,0,.38)}
+    .btn.ghost{background:transparent;color:var(--text);box-shadow:none}
+    .hero-card{background:radial-gradient(800px 400px at 100% 0%, color-mix(in oklab, var(--brand-2) 16%, #0000), transparent 70%), var(--surface);
+      border:1px solid #ffffff22;padding:1rem;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero-img{aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;border:1px solid #ffffff22;box-shadow:var(--shadow);display:grid;place-items:center;background:linear-gradient(120deg,#1c1326,#281937)}
 
-        body {
-            margin: 0;
-            font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-            color: var(--text);
-            background:
-                radial-gradient(1200px 600px at 70% -10%, rgba(181, 126, 220, .18), transparent 55%),
-                linear-gradient(160deg, #0b0710, #170f1f 40%, #140d1b);
-            line-height: 1.65;
-            letter-spacing: .2px;
-        }
+    section{padding:4rem 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:1.2rem}
+    .section-head h2{font-size:clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);margin:0}
+    .muted{color:var(--muted)}
+    .grid{display:grid;gap:1rem}
+    .grid.cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}
+    .grid.cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+    .card{background:var(--surface);border:1px solid #ffffff22;border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}
 
-        h1,
-        h2 {
-            font-family: "Dancing Script", cursive;
-            line-height: 1.1
-        }
+    .gallery{display:grid;gap:.8rem;grid-template-columns:repeat(6,1fr)}
+    .gallery picture{grid-column:span 2}
+    .gallery picture:nth-child(2n){grid-column:span 3}
+    .gallery img{border-radius:14px;width:100%;height:220px;object-fit:cover;filter:saturate(1.06) contrast(1.02)}
+    @media (max-width:900px){.gallery{grid-template-columns:repeat(2,1fr)}.gallery picture{grid-column:span 1 !important}}
 
-        a {
-            color: inherit;
-            text-decoration: none
-        }
+    .quote{display:grid;grid-template-columns:64px 1fr;gap:.9rem;align-items:center}
+    .avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));border:2px solid #ffffff24}
 
-        img {
-            max-width: 100%;
-            display: block
-        }
+    .finale{display:grid;gap:1rem;place-items:center;text-align:center}
+    .finale .gift{font-size:1.2rem;color:var(--muted)}
+    .hidden{display:none !important}
 
-        .container {
-            width: min(100% - 2rem, var(--maxw));
-            margin-inline: auto
-        }
-
-        /* Header */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            backdrop-filter: saturate(160%) blur(10px);
-            background: color-mix(in oklab, var(--bg) 82%, #0000);
-            border-bottom: 1px solid #ffffff1c
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: .8rem 0
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: .7rem;
-            font-weight: 800;
-            letter-spacing: .3px
-        }
-
-        .logo {
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
-            background: conic-gradient(from 200deg, var(--brand), var(--brand-2), var(--accent));
-            box-shadow: inset 0 0 0 2px #ffffff24
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center
-        }
-
-        .nav-links a {
-            opacity: .9;
-            padding: .35rem .6rem;
-            border-radius: .6rem
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-            background: #ffffff10
-        }
-
-        .menu-btn {
-            display: none;
-            border: 1px solid #ffffff28;
-            border-radius: 10px;
-            padding: .4rem .6rem;
-            background: transparent;
-            color: var(--text)
-        }
-
-        @media (max-width:860px) {
-            .menu-btn {
-                display: inline-flex
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                left: 1rem;
-                right: 1rem;
-                top: 64px;
-                flex-direction: column;
-                background: var(--surface);
-                border: 1px solid #ffffff22;
-                border-radius: 14px;
-                padding: .6rem;
-                box-shadow: var(--shadow)
-            }
-
-            .nav-links.open {
-                display: flex
-            }
-        }
-
-        /* Hero */
-        .hero {
-            padding: 6rem 0 3rem;
-            display: grid;
-            gap: 2rem;
-            align-items: center;
-            grid-template-columns: 1.05fr .95fr
-        }
-
-        .hero h1 {
-            font-size: clamp(2.2rem, 4vw + 1rem, 3.6rem);
-            margin: .2rem 0 .6rem
-        }
-
-        .hero p {
-            color: var(--muted)
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: .8rem;
-            flex-wrap: wrap;
-            margin-top: 1rem
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            padding: .85rem 1.15rem;
-            border-radius: 999px;
-            border: 1px solid #ffffff28;
-            background: linear-gradient(180deg, color-mix(in oklab, var(--brand) 28%, #fff0), color-mix(in oklab, var(--brand) 10%, #0000));
-            color: white;
-            font-weight: 700;
-            box-shadow: var(--shadow);
-            transition: transform .15s ease, box-shadow .2s ease
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 18px 36px rgba(0, 0, 0, .38)
-        }
-
-        .btn.ghost {
-            background: transparent;
-            color: var(--text);
-            box-shadow: none
-        }
-
-        .hero-card {
-            background: radial-gradient(800px 400px at 100% 0%, color-mix(in oklab, var(--brand-2) 16%, #0000), transparent 70%), var(--surface);
-            border: 1px solid #ffffff22;
-            padding: 1rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow)
-        }
-
-        .hero-img {
-            aspect-ratio: 4/3;
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid #ffffff22;
-            box-shadow: var(--shadow);
-            display: grid;
-            place-items: center;
-            background: linear-gradient(120deg, #1c1326, #281937)
-        }
-
-        /* Sections */
-        section {
-            padding: 4rem 0
-        }
-
-        .section-head {
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-bottom: 1.2rem
-        }
-
-        .section-head h2 {
-            font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
-            margin: 0
-        }
-
-        .muted {
-            color: var(--muted)
-        }
-
-        .grid {
-            display: grid;
-            gap: 1rem
-        }
-
-        .grid.cols-3 {
-            grid-template-columns: repeat(3, minmax(0, 1fr))
-        }
-
-        .grid.cols-2 {
-            grid-template-columns: repeat(2, minmax(0, 1fr))
-        }
-
-        @media (max-width:900px) {
-            .hero {
-                grid-template-columns: 1fr
-            }
-
-            .grid.cols-3,
-            .grid.cols-2 {
-                grid-template-columns: 1fr
-            }
-        }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid #ffffff22;
-            border-radius: var(--radius);
-            padding: 1rem;
-            box-shadow: var(--shadow)
-        }
-
-        /* Collage / gallery */
-        .gallery {
-            display: grid;
-            gap: .8rem;
-            grid-template-columns: repeat(6, 1fr)
-        }
-
-        .gallery picture {
-            grid-column: span 2
-        }
-
-        .gallery picture:nth-child(2n) {
-            grid-column: span 3
-        }
-
-        .gallery img {
-            border-radius: 14px;
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            filter: saturate(1.06) contrast(1.02)
-        }
-
-        @media (max-width:900px) {
-            .gallery {
-                grid-template-columns: repeat(2, 1fr)
-            }
-
-            .gallery picture {
-                grid-column: span 1 !important
-            }
-        }
-
-        /* Testimonial style blocks reused for quotes */
-        .quote {
-            display: grid;
-            grid-template-columns: 64px 1fr;
-            gap: .9rem;
-            align-items: center
-        }
-
-        .avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--brand), var(--brand-2));
-            border: 2px solid #ffffff24
-        }
-
-        /* Finale */
-        .finale {
-            display: grid;
-            gap: 1rem;
-            place-items: center;
-            text-align: center
-        }
-
-        .finale .gift {
-            font-size: 1.2rem;
-            color: var(--muted)
-        }
-
-        .hidden {
-            display: none !important
-        }
-
-        /* Subtle floating sparkles background */
-        .sparkles {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            opacity: .25;
-            z-index: 0;
-            background-image: radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1px), radial-gradient(circle at 80% 70%, #fff 0 1px, transparent 1px), radial-gradient(circle at 60% 20%, #fff 0 1px, transparent 1px)
-        }
-
-        .sparkles {
-            animation: twinkle 8s linear infinite
-        }
-
-        @keyframes twinkle {
-            0% {
-                opacity: .15
-            }
-
-            50% {
-                opacity: .35
-            }
-
-            100% {
-                opacity: .15
-            }
-        }
-
-        footer {
-            padding: 2rem 0 3rem;
-            border-top: 1px solid #ffffff1c;
-            color: var(--muted)
-        }
-    </style>
+    .sparkles{position:fixed;inset:0;pointer-events:none;opacity:.25;z-index:0;
+      background-image:radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1px),
+                       radial-gradient(circle at 80% 70%, #fff 0 1px, transparent 1px),
+                       radial-gradient(circle at 60% 20%, #fff 0 1px, transparent 1px);
+      animation:twinkle 8s linear infinite}
+    @keyframes twinkle{0%{opacity:.15}50%{opacity:.35}100%{opacity:.15}}
+    footer{padding:2rem 0 3rem;border-top:1px solid #ffffff1c;color:var(--muted)}
+  </style>
 </head>
 
 <body>
-    <div class="sparkles" aria-hidden="true"></div>
+  <div class="sparkles" aria-hidden="true"></div>
 
-    <!-- ================= HEADER ================= -->
-    <header>
-        <div class="container nav" role="navigation" aria-label="Main">
-            <a class="brand" href="#top">
-                <div class="logo" aria-hidden="true"></div>
-                <span id="siteName">Happy Birthday Tioluwanimi</span>
-            </a>
-            <nav>
-                <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">☰</button>
-                <div class="nav-links" id="menu">
-                    <a href="#about">Hi</a>
-                    <a href="#nurse">More Hi</a>
-                    <a href="#baking">More more Hi</a>
-                    <a href="#message">Letter</a>
-                    <button class="btn ghost" id="musicToggle" title="Music on/off">♪</button>
-                </div>
-            </nav>
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="#top">
+        <div class="logo" aria-hidden="true"></div>
+        <span id="siteName">Happy Birthday Tioluwanimi</span>
+      </a>
+      <nav>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">☰</button>
+        <div class="nav-links" id="menu">
+          <a href="#about">Hi</a>
+          <a href="#nurse">More Hi</a>
+          <a href="#baking">More more Hi</a>
+          <a href="#message">Letter</a>
+          <button class="btn ghost" id="musicToggle" title="Music on/off">♪</button>
         </div>
-    </header>
+      </nav>
+    </div>
+  </header>
 
-    <!-- ================= HERO ================= -->
-    <main id="top">
-        <section class="container hero" aria-labelledby="heroTitle">
-            <div>
-                <span class="muted">I'm sorry I was late</span>
-                <h1 id="heroTitle">Happy Birthday <span id="herNameDisplay">Baby Girl</span></h1>
-                <p>Now you have a little website dedicated just for you</p>
-                <div class="hero-cta">
-                    <a class="btn" href="#message">Open your letter</a>
-                    <a class="btn ghost" href="#baking">Pictures</a>
-                </div>
-            </div>
-            <div class="hero-card">
-                <div class="hero-img">
-                    <span><img src="Pictures-and-videos/IMG_2469.JPG" alt="Forehead"></span>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= ABOUT ================= -->
-        <section class="container" id="about">
-            <div class="section-head">
-                <h2>About You</h2>
-                <p class="muted">e = mc^2</p>
-            </div>
-            <div class="grid cols-2">
-                <div class="card">
-                    <h3>Mini collage</h3>
-                    <div class="gallery" id="aboutGallery">
-                        <picture><img src="Pictures-and-videos/IMG_2477.JPG" alt="Photo 1 placeholder"></picture>
-                        <picture><img src="Pictures-and-videos/IMG_2478.JPG" alt="Photo 2 placeholder"></picture>
-                        <picture><img src="Pictures-and-videos/IMG_2479.JPG" alt="Photo 3 placeholder"></picture>
-                        <picture><img src="Pictures-and-videos/IMG_2481.JPG" alt="Photo 4 placeholder"></picture>
-                        <picture><img src="Pictures-and-videos/IMG_2488.JPG" alt="Photo 5 placeholder"></picture>
-                        <picture><img src="Pictures-and-videos/IMG_2496.JPG" alt="Photo 6 placeholder"></picture>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>My favorite things about you</h3>
-                    <ul>
-                        <li>Your forehead. Gorsh that forehead</li>
-                        <li>You're a future nurse[free hospital visit don set]</li>
-                        <li>You're beautiful</li>
-                        <li>You're kind, smart</li>
-                        <li>You're unapologetically you and that's beautiful</li>
-                        <li>You listen to me yap and help me go through my papers</li>
-                        <li>You one of my favorite girls</li>
-                        <li>Your body na meatpie</li>
-                    </ul>
-                    <p class="muted">btw, did you know that cardstock/cardboard has a young's modulus of 500MPa?</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= NURSE DREAMS ================= -->
-        <section class="container" id="nurse">
-            <div class="section-head">
-                <h2>AGBA MUMMY NURSE</h2>
-                <p class="muted">Compassion is the heart of care</p>
-            </div>
-            <div class="grid cols-2">
-                <div class="card">
-                    <h3>Why you’ll be amazing</h3>
-                    <p>You have a light within you that emanates and surrounds everyone that is lucky to be associated
-                        you. You're highly intelligent, motivated and I know you make a wonderful nurse[you better, my
-                        free healthcare is riding on you]</p>
-                    <blockquote class="muted">“Wherever the art of medicine is loved, there is also a love of
-                        humanity.~one random dude I saw on the internet”
-                    </blockquote>
-                </div>
-                <div class="card quote">
-                    <div class="avatar" aria-hidden="true"></div>
-                    <div>
-                        <p>I am so so proud of you. Anytime you feel disheartened, set your heart ablaze.</p>
-                        <p class="muted">— From Braimah, your #1 fan</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= BAKING LOVE ================= -->
-        <section class="container" id="baking">
-            <div class="section-head">
-                <h2>The nurse I want attending to me and my family</h2>
-                <p class="muted">Did you know that braces are made from shape memory polymers?</p>
-            </div>
-            <div class="gallery" id="bakingGallery">
-                <picture><img src="Pictures-and-videos/IMG_3217.JPG" alt=""></picture>
-                <picture><img src="Pictures-and-videos/IMG_3218.JPG" alt=""></picture>
-                <picture><img src="Pictures-and-videos/IMG_3220.JPG" alt=""></picture>
-                <picture><img src="Pictures-and-videos/IMG_3224.JPG" alt=""></picture>
-                <picture><img src="Pictures-and-videos/IMG_3225.JPG" alt=""></picture>
-                <picture><img src="Pictures-and-videos/IMG_3229.JPG" alt=""></picture>
-            </div>
-            <div class="container" style="margin-top:1rem">
-                <p class="muted"></p>
-            </div>
-        </section>
-
-        <!-- ================= LETTER ================= -->
-        <section class="container" id="message">
-            <div class="section-head">
-                <h2>Consider this a paragraph</h2>
-                <p class="muted"></p>
-            </div>
-            <div class="card" id="letterCard">
-                <p data-line>Hey <span id="herNameInline">Babygirl</span>, happy birthday!!!!</p>
-                <p data-line>Big 19 abi 18 idek your age damn. All in all you're old.
-                    I'm sorry I was late. I wanted to cpmplete an assignment that I thought would take me an hour. An
-                    hour turned into 12 hours lmao. I wanted to finalize your website before i sent it to you.
-                    You’re an amazing, intelligent, beautiful elegant young lady and I’m so proud of you. So so proud of
-                    you. I pray you
-                    continue to grow in wisdom, knowledge and understanding. God would enlarge your coast, and grant you
-                    all your heart
-                    desires according to His will. I can’t wait till I have a steady source of income so I can actually
-                    send you gifts lmao. Lack of money no good sha. Thank you for being understanding, thank you
-                    for being a shoulder to vent to. Thank you for expecting so much from me because it makes me want to
-                    be beter.
-                    I want you to know that no matter what happens, no matter what you’re going through, or whether we
-                    argue, or we’re not
-                    on ‘good terms’, I’m always an option.
-                    I’m always here for you and I mean it.
-                    Happy birthday again girl
-                    I love you (ew).</p>
-            </div>
-        </section>
-
-        <!-- ================= FINALE ================= -->
-        <section class="container finale" id="finale">
-            <p class="gift">Ready for the last surprise?</p>
-            <button class="btn" id="unwrapBtn">Tap to unwrap[it's confetti]</button>
-            <div class="card hidden" id="finalMsg">
-                <h3>Don't ever stop being you</h3>
-                <p class="muted">P.S. Scroll back up any time you need a smile.</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container"
-            style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center;">
-            <p>© <span id="year"></span> For Forehead<span id="footerName"> from Braimah</span>. Built with love and
-                just a
-                tiny bit
-                of crashing out</p>
-            <span class="muted"></span>
+  <!-- ================= HERO ================= -->
+  <main id="top">
+    <section class="container hero" aria-labelledby="heroTitle">
+      <div>
+        <span class="muted">I'm sorry I was late</span>
+        <h1 id="heroTitle">Happy Birthday <span>Baby Girl</span></h1>
+        <p>Now you have a little website dedicated just for you</p>
+        <div class="hero-cta">
+          <a class="btn" href="#message">Open your letter</a>
+          <a class="btn ghost" href="#baking">Pictures</a>
         </div>
-    </footer>
+      </div>
+      <div class="hero-card">
+        <div class="hero-img">
+          <span><img src="Pictures-and-videos/IMG_2469.JPG" alt="Forehead"></span>
+        </div>
+      </div>
+    </section>
 
-    <!-- Optional background music (replace src with a short mp3). Keep it subtle. -->
-  <audio id="bgm" loop preload="auto" controls>
-  <source src="Sonder - Care.mp3" type="audio/mpeg">
-</audio>
+    <!-- ================= ABOUT ================= -->
+    <section class="container" id="about">
+      <div class="section-head">
+        <h2>About You</h2>
+        <p class="muted">e = mc^2</p>
+      </div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Mini collage</h3>
+          <div class="gallery" id="aboutGallery">
+            <picture><img src="Pictures-and-videos/IMG_2477.JPG" alt=""></picture>
+            <picture><img src="Pictures-and-videos/IMG_2478.JPG" alt=""></picture>
+            <picture><img src="Pictures-and-videos/IMG_2479.JPG" alt=""></picture>
+            <picture><img src="Pictures-and-videos/IMG_2481.JPG" alt=""></picture>
+            <picture><img src="Pictures-and-videos/IMG_2488.JPG" alt=""></picture>
+            <picture><img src="Pictures-and-videos/IMG_2496.JPG" alt=""></picture>
+          </div>
+        </div>
+        <div class="card">
+          <h3>My favorite things about you</h3>
+          <ul>
+            <li>Your forehead. Gorsh that forehead</li>
+            <li>You're a future nurse [free hospital visit don set]</li>
+            <li>You're beautiful</li>
+            <li>You're kind, smart</li>
+            <li>You're unapologetically you and that's beautiful</li>
+            <li>You listen to me yap and help me go through my papers</li>
+            <li>You one of my favorite girls</li>
+            <li>Your body na meatpie</li>
+          </ul>
+          <p class="muted">btw, did you know that cardstock/cardboard has a Young's modulus of ~500 MPa?</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- Confetti canvas -->
-    <canvas id="confetti" class="hidden" style="position:fixed;inset:0;z-index:50;pointer-events:none"></canvas>
+    <!-- ================= NURSE DREAMS ================= -->
+    <section class="container" id="nurse">
+      <div class="section-head">
+        <h2>AGBA MUMMY NURSE</h2>
+        <p class="muted">Compassion is the heart of care</p>
+      </div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Why you’ll be amazing</h3>
+          <p>You have a light within you that emanates and surrounds everyone that is lucky to be associated with you. You're highly intelligent, motivated and I know you’ll make a wonderful nurse [you better, my free healthcare is riding on you]</p>
+          <blockquote class="muted">“Wherever the art of medicine is loved, there is also a love of humanity.” ~ one random dude I saw on the internet</blockquote>
+        </div>
+        <div class="card quote">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <p>I am so so proud of you. Anytime you feel disheartened, set your heart ablaze.</p>
+            <p class="muted">— From Braimah, your #1 fan</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <script>
-        // =========================
-        // Mobile menu
-        // =========================
-        const menuBtn = document.getElementById('menuBtn');
-        const menu = document.getElementById('menu');
-        menuBtn.addEventListener('click', () => {
-            const open = menu.classList.toggle('open');
-            menuBtn.setAttribute('aria-expanded', String(open));
-        });
+    <!-- ================= BAKING LOVE ================= -->
+    <section class="container" id="baking">
+      <div class="section-head">
+        <h2>The nurse I want attending to me and my family</h2>
+        <p class="muted">Did you know that braces are made from shape memory polymers?</p>
+      </div>
+      <div class="gallery" id="bakingGallery">
+        <picture><img src="Pictures-and-videos/IMG_3217.JPG" alt=""></picture>
+        <picture><img src="Pictures-and-videos/IMG_3218.JPG" alt=""></picture>
+        <picture><img src="Pictures-and-videos/IMG_3220.JPG" alt=""></picture>
+        <picture><img src="Pictures-and-videos/IMG_3224.JPG" alt=""></picture>
+        <picture><img src="Pictures-and-videos/IMG_3225.JPG" alt=""></picture>
+        <picture><img src="Pictures-and-videos/IMG_3229.JPG" alt=""></picture>
+      </div>
+      <div class="container" style="margin-top:1rem">
+        <p class="muted"></p>
+      </div>
+    </section>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', ev => {
-                const id = a.getAttribute('href').slice(1);
-                const el = document.getElementById(id);
-                if (el) {
-                    ev.preventDefault();
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    menu.classList.remove('open');
-                    menuBtn.setAttribute('aria-expanded', 'false');
-                }
-            });
-        });
+    <!-- ================= LETTER ================= -->
+    <section class="container" id="message">
+      <div class="section-head">
+        <h2>Consider this a paragraph</h2>
+        <p class="muted"></p>
+      </div>
+      <div class="card" id="letterCard">
+        <p data-line>Hey <span>Babygirl</span>, happy birthday!!!!</p>
+        <p data-line>Big 19 abi 18 idek your age damn. All in all you're old.
+          I'm sorry I was late. I wanted to cpmplete an assignment that I thought would take me an hour. An
+          hour turned into 12 hours lmao. I wanted to finalize your website before i sent it to you.
+          You’re an amazing, intelligent, beautiful elegant young lady and I’m so proud of you. So so proud of
+          you. I pray you
+          continue to grow in wisdom, knowledge and understanding. God would enlarge your coast, and grant you
+          all your heart
+          desires according to His will. I can’t wait till I have a steady source of income so I can actually
+          send you gifts lmao. Lack of money no good sha. Thank you for being understanding, thank you
+          for being a shoulder to vent to. Thank you for expecting so much from me because it makes me want to
+          be beter.
+          I want you to know that no matter what happens, no matter what you’re going through, or whether we
+          argue, or we’re not
+          on ‘good terms’, I’m always an option.
+          I’m always here for you and I mean it.
+          Happy birthday again girl
+          I love you (ew).</p>
+      </div>
+    </section>
 
-        // =========================
-        // Typewriter reveal for the letter
-        // =========================
-        const lines = Array.from(document.querySelectorAll('#letterCard [data-line]'));
-        lines.forEach(l => l.style.opacity = 0);
-        let i = 0;
-        function revealNext() {
-            if (i >= lines.length) return;
-            const el = lines[i++];
-            el.animate(
-                [{ opacity: 0, filter: 'blur(6px)' }, { opacity: 1, filter: 'blur(0)' }],
-                { duration: 600, easing: 'ease-out', fill: 'forwards' }
-            );
-            if (i < lines.length) setTimeout(revealNext, 600);
+    <!-- ================= FINALE ================= -->
+    <section class="container finale" id="finale">
+      <p class="gift">Ready for the last surprise?</p>
+      <button class="btn" id="unwrapBtn">Tap to unwrap [it's confetti]</button>
+      <div class="card hidden" id="finalMsg">
+        <h3>Don't ever stop being you</h3>
+        <p class="muted">P.S. Scroll back up any time you need a smile.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center;">
+      <p>© <span id="year"></span> For Forehead<span id="footerName"> from Braimah</span>. Built with love and just a tiny bit of crashing out</p>
+      <span class="muted"></span>
+    </div>
+  </footer>
+
+  <!-- Audio: two sources so either filename works. Prefer renaming to sonder-care.mp3 -->
+  <audio id="bgm" preload="auto" playsinline>
+    <source src="sonder-care.mp3?v=3" type="audio/mpeg">
+    <source src="Sonder - Care.mp3?v=3" type="audio/mpeg">
+  </audio>
+
+  <!-- Confetti canvas -->
+  <canvas id="confetti" class="hidden" style="position:fixed;inset:0;z-index:50;pointer-events:none"></canvas>
+
+  <script>
+    // ===== Mobile menu =====
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    // ===== Smooth scroll =====
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', ev => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          ev.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          menu.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
         }
-        const onScrollReveal = () => {
-            const rect = document.getElementById('letterCard').getBoundingClientRect();
-            if (rect.top < innerHeight * 0.8) {
-                revealNext();
-                removeEventListener('scroll', onScrollReveal);
-            }
-        };
-        addEventListener('scroll', onScrollReveal);
+      });
+    });
 
-        // =========================
-        // Finale: confetti + message
-        // =========================
-        const unwrapBtn = document.getElementById('unwrapBtn');
-        const finalMsg = document.getElementById('finalMsg');
-        const confettiCanvas = document.getElementById('confetti');
-        const ctx = confettiCanvas.getContext('2d');
-
-        function sizeCanvas() {
-            confettiCanvas.width = innerWidth;
-            confettiCanvas.height = innerHeight;
-        }
-        addEventListener('resize', () => {
-            if (!confettiCanvas.classList.contains('hidden')) sizeCanvas();
-        });
-
-        function fireConfetti(duration = 2000) {
-            sizeCanvas();
-            confettiCanvas.classList.remove('hidden');
-            const colors = ['#b57edc', '#c9a0ff', '#ffb6d9', '#f3c97a', '#ffffff'];
-            const pieces = Array.from({ length: 180 }, () => ({
-                x: Math.random() * confettiCanvas.width,
-                y: -20 - Math.random() * innerHeight,
-                r: 4 + Math.random() * 6,
-                vx: -1 + Math.random() * 2,
-                vy: 2 + Math.random() * 3,
-                color: colors[Math.floor(Math.random() * colors.length)],
-                rot: Math.random() * Math.PI,
-                vr: -0.1 + Math.random() * 0.2
-            }));
-
-            const start = performance.now();
-            function frame(t) {
-                const elapsed = t - start;
-                ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-                pieces.forEach(p => {
-                    p.x += p.vx; p.y += p.vy; p.rot += p.vr;
-                    if (p.y > confettiCanvas.height + 40) { p.y = -20; p.x = Math.random() * confettiCanvas.width; }
-                    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-                    ctx.fillStyle = p.color; ctx.fillRect(-p.r, -p.r, p.r * 2, p.r * 2);
-                    ctx.restore();
-                });
-                if (elapsed < duration) requestAnimationFrame(frame);
-                else confettiCanvas.classList.add('hidden');
-            }
-            requestAnimationFrame(frame);
-        }
-
-        unwrapBtn.addEventListener('click', () => {
-            fireConfetti();
-            finalMsg.classList.remove('hidden');
-            finalMsg.animate(
-                [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }],
-                { duration: 400, easing: 'ease-out', fill: 'forwards' }
-            );
-        });
-
-        // =========================
-        // Music toggle
-        // =========================
-        const bgm = document.getElementById('bgm');
-  const musicBtn = document.getElementById('musicToggle');
-  let playing = false;
-
-  // make sure the element can't be silently muted
-  function primeAudio(){
-    bgm.muted = false;
-    bgm.volume = 0.9;       // LOUD on purpose
-    bgm.playbackRate = 1.0;
-  }
-
-  async function startMusic() {
-    try {
-      primeAudio();
-      await bgm.play();
-      musicBtn.textContent = '⏸';
-      playing = true;
-    } catch (e) {
-      console.log('Audio blocked until a tap:', e);
+    // ===== Letter reveal =====
+    const lines = Array.from(document.querySelectorAll('#letterCard [data-line]'));
+    lines.forEach(l => l.style.opacity = 0);
+    let i = 0;
+    function revealNext(){
+      if (i >= lines.length) return;
+      const el = lines[i++];
+      el.animate([{opacity:0, filter:'blur(6px)'}, {opacity:1, filter:'blur(0)'}], {duration:600, easing:'ease-out', fill:'forwards'});
+      if (i < lines.length) setTimeout(revealNext, 600);
     }
-  }
+    const onScrollReveal = () => {
+      const rect = document.getElementById('letterCard').getBoundingClientRect();
+      if (rect.top < innerHeight * 0.8){ revealNext(); removeEventListener('scroll', onScrollReveal); }
+    };
+    addEventListener('scroll', onScrollReveal);
 
-  // start on first gesture anywhere (reliable across mobile/desktop)
-  const kick = async () => { await startMusic();
-    window.removeEventListener('click', kick);
-    window.removeEventListener('touchstart', kick);
-    window.removeEventListener('keydown', kick);
-  };
-  window.addEventListener('click', kick);
-  window.addEventListener('touchstart', kick, { passive: true });
-  window.addEventListener('keydown', kick);
+    // ===== Confetti =====
+    const unwrapBtn = document.getElementById('unwrapBtn');
+    const finalMsg = document.getElementById('finalMsg');
+    const confetti = document.getElementById('confetti');
+    const ctx = confetti.getContext('2d');
+    function sizeCanvas(){ confetti.width = innerWidth; confetti.height = innerHeight; }
+    addEventListener('resize', () => { if (!confetti.classList.contains('hidden')) sizeCanvas(); });
+    function fireConfetti(duration=2000){
+      sizeCanvas(); confetti.classList.remove('hidden');
+      const colors = ['#b57edc','#c9a0ff','#ffb6d9','#f3c97a','#ffffff'];
+      const pieces = Array.from({length:180}, () => ({
+        x: Math.random()*confetti.width, y: -20 - Math.random()*innerHeight,
+        r: 4 + Math.random()*6, vx: -1 + Math.random()*2, vy: 2 + Math.random()*3,
+        color: colors[Math.floor(Math.random()*colors.length)], rot: Math.random()*Math.PI, vr: -0.1 + Math.random()*0.2
+      }));
+      const start = performance.now();
+      function frame(t){
+        const elapsed = t - start;
+        ctx.clearRect(0,0,confetti.width,confetti.height);
+        pieces.forEach(p => {
+          p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+          if (p.y > confetti.height+40){ p.y = -20; p.x = Math.random()*confetti.width; }
+          ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+          ctx.fillStyle = p.color; ctx.fillRect(-p.r, -p.r, p.r*2, p.r*2);
+          ctx.restore();
+        });
+        if (elapsed < duration) requestAnimationFrame(frame); else confetti.classList.add('hidden');
+      }
+      requestAnimationFrame(frame);
+    }
+    unwrapBtn.addEventListener('click', () => {
+      fireConfetti();
+      finalMsg.classList.remove('hidden');
+      finalMsg.animate([{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'translateY(0)'}], {duration:400, easing:'ease-out', fill:'forwards'});
+    });
 
-  // toggle button
-  musicBtn.addEventListener('click', async () => {
-    try {
-      if (!playing || bgm.paused) { await startMusic(); return; }
-      bgm.pause(); musicBtn.textContent = '♪'; playing = false;
-    } catch(e){ console.log(e); }
-  });
+    // ===== Music (robust first-gesture start + toggle) =====
+    const musicBtn = document.getElementById('musicToggle');
+    const bgm = document.getElementById('bgm');
+    let playing = false;
 
-  // quick debug helper (optional): run debugBGM() in DevTools
-  window.debugBGM = () =>
-    console.log({ muted: bgm.muted, volume: bgm.volume, paused: bgm.paused, currentTime: bgm.currentTime });
-    </script>
+    function primeAudio(){
+      bgm.muted = false;            // ensure it's unmuted
+      bgm.volume = 0.9;             // audible
+      bgm.playbackRate = 1.0;
+    }
+    async function startMusic(){
+      try{
+        primeAudio();
+        await bgm.play();           // call after real gesture
+        musicBtn.textContent = '⏸';
+        playing = true;
+      }catch(e){
+        console.log('Audio blocked until a tap/click:', e);
+      }
+    }
+    const kick = async () => {
+      await startMusic();
+      window.removeEventListener('click', kick);
+      window.removeEventListener('touchend', kick);
+      window.removeEventListener('keydown', kick);
+    };
+    window.addEventListener('click', kick, { once:true });
+    window.addEventListener('touchend', kick, { once:true, passive:true });
+    window.addEventListener('keydown', kick, { once:true });
 
+    musicBtn.addEventListener('click', async () => {
+      try{
+        if (!playing || bgm.paused){ await startMusic(); return; }
+        bgm.pause(); musicBtn.textContent = '♪'; playing = false;
+      }catch(e){ console.log(e); }
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
-
 </html>
-
-
-
