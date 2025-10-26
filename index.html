@@ -331,44 +331,75 @@
     });
 
     // ===== Music (robust first-gesture start + toggle) =====
-    const musicBtn = document.getElementById('musicToggle');
-    const bgm = document.getElementById('bgm');
-    let playing = false;
+   <!-- Make sure your audio tag looks like this somewhere above the script -->
+<audio id="bgm" preload="auto" playsinline>
+  <!-- Prefer renaming the file to sonder-care.mp3 in the repo -->
+  <source src="sonder-care.mp3?v=4" type="audio/mpeg">
+  <source src="Sonder - Care.mp3?v=4" type="audio/mpeg">
+</audio>
 
-    function primeAudio(){
-      bgm.muted = false;            // ensure it's unmuted
-      bgm.volume = 0.9;             // audible
-      bgm.playbackRate = 1.0;
+<script>
+  // ===== Music (super-robust handler) =====
+  const musicBtn = document.getElementById('musicToggle');
+  const bgm = document.getElementById('bgm');
+  let playing = false;
+
+  // Prime the element and (re)load the source before trying to play
+  function primeAudio() {
+    bgm.muted = false;
+    bgm.volume = 0.9;
+    bgm.playbackRate = 1.0;
+    try { bgm.load(); } catch (_) {}
+  }
+
+  async function startMusic() {
+    primeAudio();
+    try {
+      await bgm.play();
+      musicBtn.textContent = '⏸';
+      playing = true;
+    } catch (e) {
+      // If browser still blocks, the UI will stay as '♪'
+      console.log('Play blocked or failed:', e);
     }
-    async function startMusic(){
-      try{
-        primeAudio();
-        await bgm.play();           // call after real gesture
-        musicBtn.textContent = '⏸';
-        playing = true;
-      }catch(e){
-        console.log('Audio blocked until a tap/click:', e);
-      }
-    }
-    const kick = async () => {
+  }
+
+  async function toggleMusic() {
+    // If not started yet, start
+    if (!playing || bgm.paused) {
       await startMusic();
-      window.removeEventListener('click', kick);
-      window.removeEventListener('touchend', kick);
-      window.removeEventListener('keydown', kick);
-    };
-    window.addEventListener('click', kick, { once:true });
-    window.addEventListener('touchend', kick, { once:true, passive:true });
-    window.addEventListener('keydown', kick, { once:true });
+      return;
+    }
+    // Otherwise toggle pause
+    bgm.pause();
+    musicBtn.textContent = '♪';
+    playing = false;
+  }
 
-    musicBtn.addEventListener('click', async () => {
-      try{
-        if (!playing || bgm.paused){ await startMusic(); return; }
-        bgm.pause(); musicBtn.textContent = '♪'; playing = false;
-      }catch(e){ console.log(e); }
-    });
+  // Start music on first real gesture ANYWHERE (covers mobile/desktop)
+  const firstKick = async () => {
+    await startMusic();
+    window.removeEventListener('click', firstKick);
+    window.removeEventListener('touchend', firstKick);
+    window.removeEventListener('keydown', firstKick);
+  };
+  window.addEventListener('click', firstKick, { once: true });
+  window.addEventListener('touchend', firstKick, { once: true, passive: true });
+  window.addEventListener('keydown', firstKick, { once: true });
 
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  // Also wire the dedicated button
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // don’t consume the page-level firstKick
+    toggleMusic();
+  });
+
+  // Optional: also kick music when she opens the letter or unwraps the gift
+  const openLetter = document.querySelector('a[href="#message"]');
+  if (openLetter) openLetter.addEventListener('click', startMusic);
+  const unwrapBtn2 = document.getElementById('unwrapBtn');
+  if (unwrapBtn2) unwrapBtn2.addEventListener('click', startMusic);
+</script>
+
 </body>
 </html>
+
