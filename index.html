@@ -675,38 +675,54 @@
         // =========================
         // Music toggle
         // =========================
-        const musicBtn = document.getElementById('musicToggle');
         const bgm = document.getElementById('bgm');
-        // Try autoplay muted
-        window.addEventListener('DOMContentLoaded', async () => {
-            try {
-                bgm.volume = 0;
-                await bgm.play();
-                setTimeout(() => bgm.volume = 0.5, 1000); // fade in after 1s
-                musicBtn.textContent = '⏸';
-                playing = true;
-            } catch (err) {
-                console.log('Autoplay blocked, waiting for user interaction.');
-            }
-        });
+  const musicBtn = document.getElementById('musicToggle');
+  let playing = false;
 
-        let playing = false;
-        musicBtn.addEventListener('click', async () => {
-            try {
-                if (!playing) { await bgm.play(); musicBtn.textContent = '⏸'; }
-                else { bgm.pause(); musicBtn.textContent = '♪'; }
-                playing = !playing;
-            } catch (err) {
-                alert('Add a short MP3 first to enable music.');
-            }
-        });
+  // make sure the element can't be silently muted
+  function primeAudio(){
+    bgm.muted = false;
+    bgm.volume = 0.9;       // LOUD on purpose
+    bgm.playbackRate = 1.0;
+  }
 
-        // Year
-        document.getElementById('year').textContent = new Date().getFullYear();
+  async function startMusic() {
+    try {
+      primeAudio();
+      await bgm.play();
+      musicBtn.textContent = '⏸';
+      playing = true;
+    } catch (e) {
+      console.log('Audio blocked until a tap:', e);
+    }
+  }
+
+  // start on first gesture anywhere (reliable across mobile/desktop)
+  const kick = async () => { await startMusic();
+    window.removeEventListener('click', kick);
+    window.removeEventListener('touchstart', kick);
+    window.removeEventListener('keydown', kick);
+  };
+  window.addEventListener('click', kick);
+  window.addEventListener('touchstart', kick, { passive: true });
+  window.addEventListener('keydown', kick);
+
+  // toggle button
+  musicBtn.addEventListener('click', async () => {
+    try {
+      if (!playing || bgm.paused) { await startMusic(); return; }
+      bgm.pause(); musicBtn.textContent = '♪'; playing = false;
+    } catch(e){ console.log(e); }
+  });
+
+  // quick debug helper (optional): run debugBGM() in DevTools
+  window.debugBGM = () =>
+    console.log({ muted: bgm.muted, volume: bgm.volume, paused: bgm.paused, currentTime: bgm.currentTime });
     </script>
 
 </body>
 
 </html>
+
 
 
